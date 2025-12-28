@@ -1,0 +1,17 @@
+{
+  "name": "construction-cost-estimator",
+  "version": "1.0.0",
+  "description": "Production-ready construction cost calculator with secure payment",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build needed'",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "@vercel/node": "^3.0.0"
+  }
+}

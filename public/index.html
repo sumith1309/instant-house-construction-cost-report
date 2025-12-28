@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant House Construction Cost Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        
+        <!-- Header -->
+        <header class="mb-12 border-b border-gray-300 pb-6">
+            <h1 class="text-3xl font-bold text-gray-900">Instant House Construction Cost Report</h1>
+            <p class="text-gray-600 mt-2">Get cost clarity and decision support for your residential construction project</p>
+            <p class="text-sm text-gray-500 mt-1">Based on current market averages used by homeowners and contractors.</p>
+        </header>
+
+        <!-- Input Form -->
+        <section class="mb-8">
+            <div class="bg-gray-50 border border-gray-300 rounded p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">Project Details</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="area" class="block text-sm font-medium text-gray-700 mb-2">
+                            Built-up Area (sqft)
+                        </label>
+                        <input 
+                            type="number" 
+                            id="area" 
+                            min="100" 
+                            placeholder="e.g., 1500"
+                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                    </div>
+
+                    <div>
+                        <label for="specification" class="block text-sm font-medium text-gray-700 mb-2">
+                            Specification Level
+                        </label>
+                        <select 
+                            id="specification"
+                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="">Select specification</option>
+                            <option value="basic">Basic</option>
+                            <option value="standard">Standard</option>
+                            <option value="premium">Premium</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="location" class="block text-sm font-medium text-gray-700 mb-2">
+                            Location Cost Factor
+                        </label>
+                        <select 
+                            id="location"
+                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="">Select location factor</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="floors" class="block text-sm font-medium text-gray-700 mb-2">
+                            Number of Floors
+                        </label>
+                        <select 
+                            id="floors"
+                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="">Select floors</option>
+                            <option value="g0">G+0 (Ground Floor Only)</option>
+                            <option value="g1">G+1 (Ground + 1 Floor)</option>
+                            <option value="g2">G+2 (Ground + 2 Floors)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button 
+                        id="calculateBtn"
+                        class="w-full bg-blue-600 text-white py-3 px-6 rounded font-medium hover:bg-blue-700 transition-colors"
+                    >
+                        Calculate Cost Estimate
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Free Result Section -->
+        <section id="freeResult" class="mb-8 hidden">
+            <div class="bg-blue-50 border border-blue-200 rounded p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Estimated Construction Cost</h2>
+                <div class="text-center py-4">
+                    <p class="text-4xl font-bold text-blue-600" id="costRange"></p>
+                    <p class="text-gray-600 mt-2">Based on average market construction rates</p>
+                    <p class="text-sm text-gray-700 mt-4 border-t border-blue-200 pt-4">This is a high-level estimate. Detailed breakup, timeline, and printable report are available in the full version.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Value Proposition -->
+        <section id="valueSection" class="mb-8 hidden">
+            <div class="bg-white border border-gray-300 rounded p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Why this report saves you money</h3>
+                <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-start">
+                        <span class="text-blue-600 mr-2">✓</span>
+                        <span>Itemized breakdown helps you negotiate with contractors</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-600 mr-2">✓</span>
+                        <span>Realistic timeline prevents rushed decisions and cost overruns</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-600 mr-2">✓</span>
+                        <span>Professional PDF report you can share with architects and builders</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-600 mr-2">✓</span>
+                        <span>Based on actual market data used by 500+ homeowners</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Payment Gate -->
+        <section id="paymentGate" class="mb-8 hidden">
+            <!-- Locked Preview -->
+            <div class="bg-white border border-gray-300 rounded p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Detailed breakdown locked</h3>
+                <div class="relative">
+                    <div class="blur-sm pointer-events-none select-none">
+                        <table class="w-full border-collapse opacity-50">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Component</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-right">Percentage</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-right">Cost Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-gray-300 px-4 py-2">Foundation & Structure</td>
+                                    <td class="border border-gray-300 px-4 py-2 text-right">35%</td>
+                                    <td class="border border-gray-300 px-4 py-2 text-right">₹X,XX,XXX</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 px-4 py-2">Masonry & Plastering</td>
+                                    <td class="border border-gray-300 px-4 py-2 text-right">20%</td>
+                                    <td class="border border-gray-300 px-4 py-2 text-right">₹X,XX,XXX</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 px-4 py-2">Flooring & Finishing</td>
+                                    <td class="border border-gray-300 px-4 py-2 text-right">20%</td>
+                                    <td class="border border-gray-300 px-4 py-2 text-right">₹X,XX,XXX</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="bg-white px-4 py-2 border border-gray-400 rounded shadow-sm">
+                            <p class="text-sm font-medium text-gray-700">Unlock to view complete breakdown</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unlock CTA -->
+            <div class="bg-gray-50 border border-gray-300 rounded p-6 text-center">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Get Complete Report</h3>
+                <p class="text-gray-600 mb-4">Itemized cost breakdown, realistic timeline, and downloadable PDF</p>
+                <div class="text-3xl font-bold text-gray-900 mb-4">₹499</div>
+                <button 
+                    id="unlockBtn"
+                    class="bg-blue-600 text-white py-3 px-8 rounded font-medium hover:bg-blue-700 transition-colors"
+                >
+                    Unlock Full Report
+                </button>
+                <p class="text-xs text-gray-500 mt-3">Secure payment via Gumroad • Instant access</p>
+            </div>
+        </section>
+
+        <!-- Legal Links -->
+        <div class="mb-8 text-center space-x-4 text-sm">
+            <a href="#" id="termsLink" class="text-blue-600 hover:underline">Terms & Conditions</a>
+            <a href="#" id="disclaimerLink" class="text-blue-600 hover:underline">Disclaimer</a>
+            <a href="#" id="refundLink" class="text-blue-600 hover:underline">Refund Policy</a>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-12 pt-6 border-t border-gray-300">
+            <p class="text-sm text-gray-600 text-center">
+                <strong>Important:</strong> This is an estimation tool, not a contractor quote. 
+                Actual costs may vary depending on design, material selection, site conditions, and contractor pricing.
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- Terms Modal -->
+    <div id="termsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6">
+            <h2 class="text-2xl font-bold mb-4">Terms & Conditions</h2>
+            <div class="text-gray-700 space-y-3 text-sm">
+                <p><strong>1. Service Description</strong></p>
+                <p>This tool provides construction cost estimates based on market averages. It is for informational purposes only.</p>
+                
+                <p><strong>2. No Guarantee</strong></p>
+                <p>We do not guarantee accuracy of estimates. Actual construction costs depend on numerous factors beyond our control.</p>
+                
+                <p><strong>3. Not Professional Advice</strong></p>
+                <p>This tool does not replace professional architectural, engineering, or contractor consultation.</p>
+                
+                <p><strong>4. Payment</strong></p>
+                <p>Payment is processed securely through Gumroad. By purchasing, you agree to their terms of service.</p>
+                
+                <p><strong>5. License</strong></p>
+                <p>The report is for personal use only. Commercial redistribution is prohibited.</p>
+            </div>
+            <button id="closeTerms" class="mt-6 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Close</button>
+        </div>
+    </div>
+
+    <!-- Disclaimer Modal -->
+    <div id="disclaimerModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6">
+            <h2 class="text-2xl font-bold mb-4">Disclaimer</h2>
+            <div class="text-gray-700 space-y-3 text-sm">
+                <p>This estimate is indicative and based on prevailing market averages. Actual costs may vary significantly depending on:</p>
+                <ul class="list-disc list-inside space-y-1 ml-4">
+                    <li>Architectural design complexity</li>
+                    <li>Material brand and quality selection</li>
+                    <li>Site accessibility and soil conditions</li>
+                    <li>Local labor rates and availability</li>
+                    <li>Government regulations and approval costs</li>
+                    <li>Market fluctuations in material prices</li>
+                </ul>
+                <p class="font-semibold mt-4">This tool does not constitute:</p>
+                <ul class="list-disc list-inside space-y-1 ml-4">
+                    <li>A contractor quote or bid</li>
+                    <li>Professional architectural or engineering advice</li>
+                    <li>A guarantee of final construction costs</li>
+                    <li>Legal or financial advice</li>
+                </ul>
+                <p class="mt-4">Always consult with licensed professionals before making construction decisions.</p>
+            </div>
+            <button id="closeDisclaimer" class="mt-6 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Close</button>
+        </div>
+    </div>
+
+    <!-- Refund Modal -->
+    <div id="refundModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6">
+            <h2 class="text-2xl font-bold mb-4">Refund Policy</h2>
+            <div class="text-gray-700 space-y-3 text-sm">
+                <p><strong>7-Day Money-Back Guarantee</strong></p>
+                <p>We offer a full refund within 7 days of purchase if you are not satisfied with the report, no questions asked.</p>
+                
+                <p><strong>How to Request a Refund</strong></p>
+                <p>Email us at support@example.com with your purchase ID. Refunds are processed within 3-5 business days.</p>
+                
+                <p><strong>Conditions</strong></p>
+                <ul class="list-disc list-inside space-y-1 ml-4">
+                    <li>Refund requests must be made within 7 days of purchase</li>
+                    <li>One refund per customer</li>
+                    <li>Refunds are processed through the original payment method</li>
+                </ul>
+                
+                <p class="mt-4"><strong>No Refund After 7 Days</strong></p>
+                <p>After 7 days, all sales are final. Please review the free estimate carefully before purchasing.</p>
+            </div>
+            <button id="closeRefund" class="mt-6 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Close</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

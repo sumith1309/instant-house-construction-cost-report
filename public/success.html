@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - Construction Cost Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="bg-white">
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        
+        <!-- Header -->
+        <header class="mb-12 border-b border-gray-300 pb-6">
+            <h1 class="text-3xl font-bold text-gray-900">Construction Cost Report</h1>
+        </header>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="text-center py-12">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <p class="text-gray-600 mt-4">Verifying your payment...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="hidden">
+            <div class="bg-red-50 border border-red-200 rounded p-6 text-center">
+                <h2 class="text-xl font-semibold text-red-900 mb-2">Payment Verification Failed</h2>
+                <p class="text-red-700 mb-4" id="errorMessage"></p>
+                <a href="/" class="inline-block bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700">
+                    Return to Calculator
+                </a>
+            </div>
+        </div>
+
+        <!-- Success State -->
+        <div id="successState" class="hidden">
+            <!-- Success Message -->
+            <div class="bg-green-50 border border-green-200 rounded p-6 mb-8 text-center">
+                <h2 class="text-2xl font-semibold text-green-900 mb-2">Payment Successful!</h2>
+                <p class="text-green-700">Your detailed construction cost report is ready</p>
+            </div>
+
+            <!-- Cost Summary -->
+            <div class="bg-blue-50 border border-blue-200 rounded p-6 mb-8">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Total Estimated Cost</h3>
+                <div class="text-center">
+                    <p class="text-4xl font-bold text-blue-600" id="totalCost"></p>
+                </div>
+            </div>
+
+            <!-- Detailed Breakdown -->
+            <div class="bg-white border border-gray-300 rounded p-6 mb-8">
+                <h3 class="text-xl font-semibold text-gray-900 mb-6">Itemized Cost Breakdown</h3>
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 px-4 py-2 text-left">Component</th>
+                            <th class="border border-gray-300 px-4 py-2 text-right">Percentage</th>
+                            <th class="border border-gray-300 px-4 py-2 text-right">Cost Range</th>
+                        </tr>
+                    </thead>
+                    <tbody id="breakdownTable">
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Timeline -->
+            <div class="bg-white border border-gray-300 rounded p-6 mb-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Estimated Construction Timeline</h3>
+                <p class="text-gray-700" id="timeline"></p>
+            </div>
+
+            <!-- Assumptions -->
+            <div class="bg-white border border-gray-300 rounded p-6 mb-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Assumptions</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>Standard soil conditions with normal foundation requirements</li>
+                    <li>Regular building materials as per specification level</li>
+                    <li>Normal site accessibility and working conditions</li>
+                    <li>Excludes land cost, architect fees, and government approvals</li>
+                    <li>Based on current market rates (subject to change)</li>
+                </ul>
+            </div>
+
+            <!-- Download PDF -->
+            <div class="text-center mb-8">
+                <button 
+                    id="downloadPdfBtn"
+                    class="bg-blue-600 text-white py-3 px-8 rounded font-medium hover:bg-blue-700 transition-colors"
+                >
+                    Download PDF Report
+                </button>
+                <p class="text-sm text-gray-500 mt-2">Your report access expires in 24 hours</p>
+            </div>
+
+            <!-- Return Link -->
+            <div class="text-center">
+                <a href="/" class="text-blue-600 hover:underline">Calculate another estimate</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-12 pt-6 border-t border-gray-300">
+            <p class="text-sm text-gray-600 text-center">
+                <strong>Disclaimer:</strong> This estimate is indicative and based on prevailing market averages. 
+                Actual costs may vary depending on design, material selection, site conditions, and contractor pricing.
+            </p>
+        </footer>
+
+    </div>
+
+    <script src="success.js"></script>
+</body>
+</html>
