@@ -92,9 +92,8 @@ function redirectToPayment() {
     return;
   }
 
-  // TODO: Replace with your actual Gumroad product URL
-  // Get this from: https://gumroad.com/products
-  const GUMROAD_PRODUCT_URL = 'https://gumroad.com/l/construction-cost-report';
+  // Gumroad product URL
+  const GUMROAD_PRODUCT_URL = 'https://swaroopster51.gumroad.com/l/hjzhxl';
   
   // Encode state in URL for return
   const returnUrl = `${window.location.origin}/success.html`;
